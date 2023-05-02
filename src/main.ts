@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { v1Module } from './app/v1/v1.module';
+import { VersioningType } from '@nestjs/common';
 
 declare const module: any;
 
@@ -9,8 +11,11 @@ async function bootstrap() {
     logger: ['log', 'error', 'warn', 'debug', 'verbose'],
   });
 
+  app.enableVersioning({
+    type: VersioningType.URI,
+    defaultVersion: '1',
+  });
   app.setGlobalPrefix('api');
-  app.enableVersioning();
 
   const config = new DocumentBuilder()
     .setTitle('TransLink Master Recruitement Task API Specification')

@@ -1,0 +1,41 @@
+version: '3.1'
+
+services:
+  mongo:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    ports:
+      - '28017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: translinkmaster
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - backend
+
+  api:
+    container_name: nestjs-api
+    image: node
+    restart: always
+    build:
+      context: .
+      target: nestjs-server
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/workdir
+      - /workdir/node_modules
+    ports:
+      - '8000:8000'
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

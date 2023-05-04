@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   ConflictException,
-  HttpCode,
   HttpException,
   HttpStatus,
   Injectable,
@@ -9,8 +8,8 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { User } from '../schemas/user.schema';
-import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
+import { User } from './users.schema';
+import { CreateUserDto, UpdateUserDto } from './users.dto';
 
 @Injectable()
 export class UsersService {

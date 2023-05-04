@@ -7,7 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { UsersService } from '../services/users.service';
+import { UsersService } from './users.service';
 import {
   ApiBadRequestResponse,
   ApiConflictResponse,
@@ -17,7 +17,7 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateUserDto, UpdateUserDto } from '../dto/user.dto';
+import { CreateUserDto, UpdateUserDto } from './users.dto';
 
 @ApiTags('users')
 @Controller('users')

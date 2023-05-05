@@ -17,16 +17,19 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthGuard } from '../guards/auth.guard';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { CreateTaskDto, UpdateTaskDto } from './tasks.dto';
 import { Task } from './tasks.schema';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @ApiTags('tasks')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
 @Controller('tasks')
+@UseInterceptors(CacheInterceptor)
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 

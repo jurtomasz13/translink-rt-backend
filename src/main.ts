@@ -21,6 +21,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('TransLink Master Recruitement Task API Specification')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

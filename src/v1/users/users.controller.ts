@@ -16,8 +16,7 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { User } from './users.schema';
-import { AuthGuard } from '../guards/auth.guard';
+import { AuthGuard, RequestWithPayload } from '../guards/auth.guard';
 
 @ApiTags('users')
 @ApiBearerAuth()
@@ -28,7 +27,7 @@ export class UsersController {
 
   @Get()
   @ApiOkResponse()
-  async findMe(@Request() req: any): Promise<User> {
+  async findMe(@Request() req: RequestWithPayload): Promise<string> {
     return req.user.email;
   }
 
@@ -37,7 +36,7 @@ export class UsersController {
   @ApiNoContentResponse()
   @ApiBadRequestResponse({ description: 'ID is in an invalid format' })
   @ApiNotFoundResponse({ description: 'User not found' })
-  async remove(@Request() req: any): Promise<void> {
-    await this.usersService.remove(req.user.id);
+  async remove(@Request() req: RequestWithPayload): Promise<void> {
+    await this.usersService.remove(req.user.sub);
   }
 }

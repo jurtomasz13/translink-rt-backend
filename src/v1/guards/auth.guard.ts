@@ -8,6 +8,10 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
+export interface RequestWithPayload extends Request {
+  user: { sub: string; email: string };
+}
+
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(

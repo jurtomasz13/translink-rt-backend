@@ -19,7 +19,7 @@ import {
   HttpStatus,
   UseInterceptors,
 } from '@nestjs/common';
-import { AuthGuard } from '../guards/auth.guard';
+import { AuthGuard, RequestWithPayload } from '../guards/auth.guard';
 import { ApiOkResponse } from '@nestjs/swagger';
 import { CreateTaskDto, UpdateTaskDto } from './tasks.dto';
 import { Task } from './tasks.schema';
@@ -36,7 +36,7 @@ export class TasksController {
   @Get()
   @ApiOkResponse()
   @ApiNotFoundResponse({ description: 'Users not found' })
-  async get(@Request() req: any) {
+  async get(@Request() req: RequestWithPayload) {
     return this.tasksService.findUserTasks(req.user.email);
   }
 
@@ -44,7 +44,7 @@ export class TasksController {
   @ApiOkResponse()
   @ApiBadRequestResponse({ description: 'Invalid data' })
   async create(
-    @Request() req: any,
+    @Request() req: RequestWithPayload,
     @Body() createTaskDto: CreateTaskDto,
   ): Promise<Task> {
     return this.tasksService.create(req.user.sub, createTaskDto);
@@ -56,7 +56,7 @@ export class TasksController {
   @ApiNotFoundResponse({ description: 'User not found' })
   async update(
     @Param('id') id: string,
-    @Request() req: any,
+    @Request() req: RequestWithPayload,
     @Body() updateTaskDto: UpdateTaskDto,
   ): Promise<Task> {
     return this.tasksService.update(req.user.sub, id, updateTaskDto);

@@ -1,9 +1,6 @@
 # Description
 
-TranslinkMaster Recruitment Task - Backend
-Nest.js + MongoDB
-
-Tomasz Jurek
+#### TranslinkMaster Recruitment Task - Backend | Nest.js + MongoDB
 
 ## Running the app
 
@@ -28,6 +25,11 @@ $ yarn install
 # to run
 $ yarn start:dev
 ```
+
+## Swagger: API Documentation
+
+To access swagger documentation go to url: [http://localhost:8000/api](http://localhost:8000/api)\
+Taking into consideration that default port is set to 8000
 
 ## Connect to MongoDB locally
 

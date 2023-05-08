@@ -1,5 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, Matches, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  MinLength,
+  Validate,
+  ValidationArguments,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+} from 'class-validator';
+
+@ValidatorConstraint({ name: 'MatchesPassword', async: false })
+export class MatchesPassword implements ValidatorConstraintInterface {
+  validate(text: string, args: any) {
+    return text === args.object.password;
+  }
+
+  defaultMessage(args: ValidationArguments) {
+    return 'Passwords do not match';
+  }
+}
 
 export class SignInDto {
   @IsEmail()
@@ -22,6 +40,8 @@ export class SignUpDto {
 
   @MinLength(6)
   @ApiProperty()
-  @Matches('password', undefined, { message: 'Passwords do not match' })
+  @Validate(MatchesPassword, {
+    message: 'Passwords do not match',
+  })
   passwordRepeat: string;
 }

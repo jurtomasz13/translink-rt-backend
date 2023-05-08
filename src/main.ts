@@ -17,6 +17,7 @@ async function bootstrap() {
   });
   app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
+  app.enableCors({ origin: '*' });
 
   const config = new DocumentBuilder()
     .setTitle('TransLink Master Recruitement Task API Specification')

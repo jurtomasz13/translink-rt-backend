@@ -7,10 +7,7 @@ import { UsersService } from '../users/users.service';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private authService: AuthService,
-    private usersService: UsersService,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   @Post('login')
   async signIn(@Body() signInDto: SignInDto) {
@@ -20,6 +17,6 @@ export class AuthController {
 
   @Post('register')
   async signUp(@Body() signUpDto: SignUpDto) {
-    return this.usersService.create(signUpDto);
+    return this.authService.signUp(signUpDto);
   }
 }

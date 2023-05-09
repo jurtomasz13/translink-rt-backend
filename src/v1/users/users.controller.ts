@@ -27,8 +27,8 @@ export class UsersController {
 
   @Get()
   @ApiOkResponse()
-  async findMe(@Request() req: RequestWithPayload): Promise<string> {
-    return req.user.email;
+  async findMe(@Request() req: RequestWithPayload): Promise<{ email: string }> {
+    return { email: req.user.email };
   }
 
   @Delete()
